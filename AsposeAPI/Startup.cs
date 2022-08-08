@@ -37,7 +37,7 @@ namespace AsposeAPI
                     Description = "Aspose Api for Generating PDF",
                 });
             });
-            services.AddSingleton<IGeneratePDF, GeneratePDF>();
+            services.AddSingleton<IGeneratePDF>(new GeneratePDF());
             services.AddControllers();
         }
 

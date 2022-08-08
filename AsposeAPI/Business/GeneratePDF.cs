@@ -38,18 +38,24 @@ namespace AsposeAPI.Business
         {
             Document originalDoc;
             string path = $"{baseDirectory}\\output";
-            CreateDirectory(path);
-            ApplyLicense();
-           
-            PdfSaveOptions pso = new PdfSaveOptions
+            try
             {
-                Compliance = PdfCompliance.Pdf17
-            };
-            foreach (FileInfo item in files)
+                CreateDirectory(path);
+                PdfSaveOptions pso = new PdfSaveOptions
+                {
+                    Compliance = PdfCompliance.Pdf17
+                };
+                foreach (FileInfo item in files)
+                {
+                    originalDoc = new Document(item.FullName);
+                    string fileSavepath = $"{path}\\{Guid.NewGuid()}.pdf";
+                    originalDoc.Save(fileSavepath, pso);
+                }
+            }
+            catch (Exception ex)
             {
-                originalDoc = new Document(item.FullName);
-                string fileSavepath = $"{path}\\{Guid.NewGuid()}.pdf";
-                originalDoc.Save(fileSavepath, pso);
+
+                return Task.FromResult(Task.FromException(ex).Exception.Message);
             }
             return Task.FromResult("Files Converted Successfully.");
         }
@@ -69,17 +75,25 @@ namespace AsposeAPI.Business
 
         private IEnumerable<FileInfo> GetFilesFromDirectory()
         {
-            string path = $"{baseDirectory}\\FilestoProcess";
-            CreateDirectory(path);
-            DirectoryInfo d = new DirectoryInfo(path);
+            IEnumerable<FileInfo> files;
+            try
+            {
+                string path = $"{baseDirectory}\\FilestoProcess";
+                CreateDirectory(path);
+                DirectoryInfo d = new DirectoryInfo(path);
 
-            FileInfo[] docFiles = d.GetFiles("*.doc");
-            FileInfo[] docxFiles = d.GetFiles("*.docx");
-            List<FileInfo> filesInfos = new List<FileInfo>();
-            filesInfos.AddRange(docFiles);
-            filesInfos.AddRange(docxFiles);
-            IEnumerable<FileInfo> files = filesInfos.AsEnumerable();
-            return files;
+                FileInfo[] docFiles = d.GetFiles("*.doc");
+                FileInfo[] docxFiles = d.GetFiles("*.docx");
+                List<FileInfo> filesInfos = new List<FileInfo>();
+                filesInfos.AddRange(docFiles);
+                filesInfos.AddRange(docxFiles);
+                files = filesInfos.AsEnumerable();
+                return files;
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
         }
     }
 }
