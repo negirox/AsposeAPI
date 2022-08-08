@@ -37,6 +37,17 @@ namespace AsposeAPI
                     Description = "Aspose Api for Generating PDF",
                 });
             });
+            services.AddCors(options =>
+            {
+                options.AddPolicy(name: "AllowedOriginPolicy",
+                                  policy =>
+                                  {
+                                      policy.WithOrigins("*","*")
+                                      .AllowAnyHeader()
+                                      .AllowAnyMethod()
+                                      .AllowCredentials();
+                                  });
+            });
             services.AddSingleton<IGeneratePDF>(new GeneratePDF());
             services.AddControllers();
         }
@@ -55,7 +66,11 @@ namespace AsposeAPI
             app.UseHttpsRedirection();
 
             app.UseRouting();
-
+            app.UseCors(x => x
+               .AllowAnyMethod()
+               .AllowAnyHeader()
+               .SetIsOriginAllowed(origin => true) // allow any origin
+               .AllowCredentials()); // allow credentials
             app.UseAuthorization();
 
             app.UseEndpoints(endpoints =>

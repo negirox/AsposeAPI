@@ -1,0 +1,65 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+    <script src="../js/pretifymodule.js"></script>
+    <script src="../js/client.js"></script>
+    
+</head>
+<body>
+    <div class="container" style="padding:3%;background:border-box;background-color:aliceblue">
+        <div class="row">
+            <div class="col-md-6" style="border:2px solid black">
+                <h2>Load Testing Tool</h2>
+                <div class="form-group">
+                    <label for="ServiceURL">Service URL:</label>
+                    <input type="text" class="form-control" id="ServiceURL" placeholder="Enter Service URL" name="ServiceURL">
+                </div>
+                <div class="form-group">
+                    <label for="NoofClients">No of Clients:</label>
+                    <input type="text" class="form-control" placeholder="Enter No of Clients" id="NoofClients" />
+                    <span>Default Client is 5</span>
+                </div>
+                <div class="form-group">
+                    <select id="ActionType" class="form-control">
+                        <option value="GET">
+                            GET
+                        </option>
+                        <option value="POST">
+                            POST
+                        </option>
+                        <option value="PUT">
+                            PUT
+                        </option>
+                        <option value="PATCH">
+                            PATCH
+                        </option>
+                    </select>
+                </div>
+                <div class="form-group" style="width:50%;">
+                    <label for="PayLoad" style="font-weight: 700;">PayLoad Needed:</label>
+                    <input type="checkbox" class="checkbox" id="IsNeeded" style="position: relative;float:right;" />
+                </div>
+                <div class="form-group">
+                    <label for="PayLoad">Body:</label>
+                    <textarea type="text" class="form-control" placeholder="Enter No of Clients" id="PayLoad" rows="5" cols="6"></textarea>
+                </div>
+                <button class="btn btn-default" id="LoadTester">Execute</button>
+                <button class="btn btn-default" id="TestExecutor" disabled="disabled">Start Test</button>
+            </div>
+            <div class="col-md-6" style="border:2px solid black">
+                <span>Test Result</span>
+                <div>
+                    <code id="ClientContainer">
+
+                    </code>
+                </div>
+            </div>
+        </div>
+          <div style="display:none;"></div>
+        </div>
+</body>
+</html>
