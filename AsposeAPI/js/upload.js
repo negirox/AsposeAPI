@@ -10,9 +10,9 @@
             ServiceURL: "",
             ActionType: "GET",
             PayLoadData: "",
-            IsPayLoadneeded:false
+            IsPayLoadneeded: false
         }
-        var responseData = [],response=[];
+        var responseData = [], response = [];
         var setting = $.extend(defaultSetting, options);
         var container = $('<div/>', { 'class': "tabbable tabs-left" });
         var selectedFile = $('<div/>', {
@@ -34,10 +34,10 @@
                         ExecuteRequests(i);
                     })(i);
                 }
-               
+
             }
             catch (e) {
-               
+
             }
         }
         var ExecuteRequests = function (ID) {
@@ -54,10 +54,9 @@
                     type: setting.ActionType,
                     headers: {
                         "accept": "application/json;odata=verbose",
-						'Access-Control-Allow-Origin' : '*',
                         "customHeader": requestId
                     },
-                    success: function (data,status,xhr,req) {
+                    success: function (data, status, xhr, req) {
                     },
                     error: function (err) {
                         console.log('failed');
@@ -75,7 +74,7 @@
                             obj.status = "failed";
                             response.push(obj);
                         }
-                          
+
                     }, complete: function () {
 
                         console.log(this.headers.customHeader);
@@ -114,23 +113,6 @@
         $(setting.DivID).append(row);
     }
 })(jQuery)
-var validation = {
-    isEmailAddress: function (str) {
-        var pattern = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/;
-        return pattern.test(str);  // returns a boolean
-    },
-    isNotEmpty: function (str) {
-        var pattern = /\S+/;
-        return pattern.test(str);  // returns a boolean
-    },
-    isNumber: function (str) {
-        var pattern = /^\d+\.?\d*$/;
-        return pattern.test(str);  // returns a boolean
-    },
-    isSame: function (str1, str2) {
-        return str1 === str2;
-    }
-};
 
 $(document).ready(function () {
     $("#PayLoad").attr('disabled', true);
@@ -163,7 +145,7 @@ $(document).ready(function () {
                 alert('Please enter a valid PayLoad Data');
                 return;
             }
-            else{
+            else {
                 try {
                     JSON.parse(payLoadData.trim());
                 }
@@ -184,6 +166,7 @@ $(document).ready(function () {
             PayLoadData: payLoadData,
             IsPayLoadneeded: isPayLoadneeded
         }
+
         $.fn.CreateMultipleClient(newSetting);
     });
 });

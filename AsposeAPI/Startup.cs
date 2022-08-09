@@ -42,10 +42,8 @@ namespace AsposeAPI
                 options.AddPolicy(name: "AllowedOriginPolicy",
                                   policy =>
                                   {
-                                      policy.WithOrigins("*","*")
-                                      .AllowAnyHeader()
-                                      .AllowAnyMethod()
-                                      .AllowCredentials();
+                                      policy.AllowAnyOrigin().AllowAnyMethod().AllowAnyMethod();
+
                                   });
             });
             services.AddSingleton<IGeneratePDF>(new GeneratePDF());
